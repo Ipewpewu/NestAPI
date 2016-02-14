@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NestAPI", "NestAPI\NestAPI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NestAPI.Tests", "NestAPI.Tests\NestAPI.Tests.csproj", "{C6639618-7132-487B-B0B3-5089361FC36B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoModelsLibrary", "..\..\..\Git\EchoAPI\EchoModelsLibrary\EchoModelsLibrary.csproj", "{ADE0F60A-1427-41B9-ADA2-67AB8029D5F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C6639618-7132-487B-B0B3-5089361FC36B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6639618-7132-487B-B0B3-5089361FC36B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6639618-7132-487B-B0B3-5089361FC36B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADE0F60A-1427-41B9-ADA2-67AB8029D5F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADE0F60A-1427-41B9-ADA2-67AB8029D5F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADE0F60A-1427-41B9-ADA2-67AB8029D5F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADE0F60A-1427-41B9-ADA2-67AB8029D5F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
