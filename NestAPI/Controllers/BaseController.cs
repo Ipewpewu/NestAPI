@@ -10,6 +10,6 @@ namespace NestAPI.Controllers
 {
     public class BaseController : ApiController
     {
-        protected readonly string AuthToken = ConfigurationManager.AppSettings["auth-token"];
+        //protected readonly string AuthToken = ConfigurationManager.AppSettings["auth-token"];
     }
 }

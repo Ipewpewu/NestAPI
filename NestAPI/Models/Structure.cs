@@ -1,20 +1,25 @@
 ﻿using NestAPI.Models.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NestAPI.Models.Base;
 
 namespace NestAPI.Models
 {
-    public class Structure
+    public class Structure : NestObject
     {
+        protected override string ObjectUrl { get { return string.Format("structures/{0}/", structure_id); } }
+
         public string structure_id { get; set; }
         public List<string> thermostats { get; set; }
         public List<string> smoke_co_alarms { get; set; }
         public List<string> cameras { get; set; }
         public dynamic devices { get; set; }
-        public AwaySate away { get; set; }
+        [TypeConverter(typeof(AwaySateConverter))]
+        public AwayState away { get; set; }
         public string name { get; set; }
         public string country_code { get; set; }
         public string postal_code { get; set; }

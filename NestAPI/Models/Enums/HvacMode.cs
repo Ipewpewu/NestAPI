@@ -1,33 +1,41 @@
-﻿using System;
+﻿using NestAPI.Models.Enums.Shared;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NestAPI.Models.Enums
 {
-    public sealed class HvacMode
+    public enum HvacMode
     {
-        public static readonly HvacMode Off = new HvacMode("off");
-        public static readonly HvacMode Cool = new HvacMode("cool");
-        public static readonly HvacMode Heat = new HvacMode("heat");
-        public static readonly HvacMode HeatCool = new HvacMode("heat-cool");
+        Unknown,
+        off,
+        cool,
+        heat,
+        [Value("heat-cool")]
+        heatCool
+    }
+    public class HvacModeConverter : TypeConverter
+    {
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value is string)
+            {
+                var mode = (string)value;
 
-        private static readonly SortedList<string, HvacMode> Values = new SortedList<string, HvacMode>();
-        private readonly string Value;
+                if (mode == HvacMode.cool.ToString()) return HvacMode.cool;
+                else if (mode == HvacMode.heat.ToString()) return HvacMode.heat;
+                else if (mode == HvacMode.off.ToString()) return HvacMode.off;
+                else if (mode == HvacMode.heatCool.ToString()) return HvacMode.heatCool;
 
-        private HvacMode(string value)
-        {
-            this.Value = value;
-            Values.Add(value, this);
-        }
-        public static implicit operator HvacMode(string value)
-        {
-            return Values[value];
-        }
-        public static implicit operator string(HvacMode value)
-        {
-            return value.Value;
+            }
+            else if (value is HvacMode)
+                return value;
+
+            return base.ConvertFrom(context, culture, value);
         }
     }
 }

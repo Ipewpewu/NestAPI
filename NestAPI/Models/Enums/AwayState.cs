@@ -3,30 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NestAPI.Models.Enums.Shared;
+using System.ComponentModel;
+using System.Globalization;
 
 namespace NestAPI.Models.Enums
 {
-    public sealed class AwaySate
+    public enum AwayState
     {
-        public static readonly AwaySate Home = new AwaySate("home");
-        public static readonly AwaySate Away = new AwaySate("away");
-        public static readonly AwaySate AutoAway = new AwaySate("auto-away");
+        home,
+        away,
+        [Value("auto-away")]
+        autoAway
+    }
+    public class AwaySateConverter : TypeConverter
+    {
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value is string)
+            {
+                var mode = (string)value;
 
-        private static readonly SortedList<string, AwaySate> Values = new SortedList<string, AwaySate>();
-        private readonly string Value;
+                if (mode == AwayState.home.ToString()) return AwayState.home;
+                else if (mode == AwayState.away.ToString()) return AwayState.away;
+                else if (mode == AwayState.autoAway.ToString()) return AwayState.autoAway;
 
-        private AwaySate(string value)
-        {
-            this.Value = value;
-            Values.Add(value, this);
-        }
-        public static implicit operator AwaySate(string value)
-        {
-            return Values[value];
-        }
-        public static implicit operator string (AwaySate value)
-        {
-            return value.Value;
+            }
+            else if (value is AwayState)
+                return value;
+
+            return base.ConvertFrom(context, culture, value);
         }
     }
+
+    
 }

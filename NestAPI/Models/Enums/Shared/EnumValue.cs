@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NestAPI.Models.Enums.Shared
 {
     [AttributeUsage(AttributeTargets.Field)]
-    public class Value : Attribute
+    public class Value : System.Attribute
     {
         public string CompareValue { get; set; }
         public Value(string value)
@@ -19,13 +19,14 @@ namespace NestAPI.Models.Enums.Shared
 
     public static class EnumValue
     {
-        public static dynamic Value(this System.Enum en)
+        public static string Field(this System.Enum en)
         {
             var attributes = en.GetType().GetCustomAttributes(typeof(Value), false);
 
             if (attributes != null && attributes.Any())
                 return ((Value)attributes[0]).CompareValue;
-            return en;
+            return en.ToString();
         }
+
     }
 }

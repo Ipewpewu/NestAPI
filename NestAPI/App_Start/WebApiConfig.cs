@@ -27,17 +27,33 @@ namespace NestAPI
             );
         }
         public static void ConfigureAuthToken()
-        {
-            var baseURL = "http://localhost:9000/";
-            using (WebApp.Start<StartUp>(url: baseURL))
+        {            
+            var authToken = string.Empty;
+            using (var dbo = new NestEntities())
+                authToken = dbo.ServiceAttributes.First(x => x.Name == "Auth.Token").Value;
+
+            if(string.IsNullOrWhiteSpace(authToken))
             {
-                if (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["auth-token"]))
+                var baseURL = "http://localhost:9000/";
+                using (WebApp.Start<OnStart>(url: baseURL))
                 {
+                    var authUrl = string.Empty;
                     var stateGuid = Guid.NewGuid();
-                    var authURL = string.Format(ConfigurationManager.AppSettings["auth-url"], ConfigurationManager.AppSettings["client-id"], stateGuid);
-                    Process.Start(authURL);
+                    using (var dbo = new NestEntities())
+                    {
+                        var url = dbo.ServiceAttributes.First(x => x.Name == "Auth.CodeUrl").Value;
+                        var clientId = dbo.ServiceAttributes.First(x => x.Name == "Client.Id").Value;
+                        authUrl = string.Format(url, clientId, stateGuid);
+                    }
+
+                        
+                        
+                    Process.Start(authUrl);
+
+                    var client = new HttpClient();
+                    var readyResult = client.GetAsync(string.Format("{0}/api/OnStart/ReadyCheck", baseURL)).Result;                   
                 }
-            }
+            }            
         }
 
     }
