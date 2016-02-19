@@ -29,7 +29,7 @@ namespace NestAPI.Models.Enums
                 if (mode == HvacMode.cool.ToString()) return HvacMode.cool;
                 else if (mode == HvacMode.heat.ToString()) return HvacMode.heat;
                 else if (mode == HvacMode.off.ToString()) return HvacMode.off;
-                else if (mode == HvacMode.heatCool.ToString()) return HvacMode.heatCool;
+                else if (mode == HvacMode.heatCool.Field()) return HvacMode.heatCool;
 
             }
             else if (value is HvacMode)

@@ -107,7 +107,7 @@ namespace NestAPI.Models.Devices
             get { return _hvac_mode; }
             set
             {
-                if (_hvac_mode == HvacMode.Unknown || Set("hvac_mode", value.Field()))
+                if (_hvac_mode == HvacMode.Unknown || Set("hvac_mode", value.Field(), true))
                     _hvac_mode = value;
             }
         }

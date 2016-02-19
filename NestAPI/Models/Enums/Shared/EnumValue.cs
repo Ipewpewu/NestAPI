@@ -21,7 +21,7 @@ namespace NestAPI.Models.Enums.Shared
     {
         public static string Field(this System.Enum en)
         {
-            var attributes = en.GetType().GetCustomAttributes(typeof(Value), false);
+            var attributes = en.GetType().GetMember(en.ToString())[0].GetCustomAttributes(typeof(Value), false);
 
             if (attributes != null && attributes.Any())
                 return ((Value)attributes[0]).CompareValue;
